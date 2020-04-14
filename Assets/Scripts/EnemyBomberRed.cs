@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBomber : MonoBehaviour
+public class EnemyBomberRed : MonoBehaviour
 {
     public float shootTimer;
     public float shootRate = 2f;
@@ -10,12 +10,14 @@ public class EnemyBomber : MonoBehaviour
     public float bulletSpeed = 5f;
     public Transform firePosition;
 
+    public GameObject itemDrop;
+
     public AudioSource fireSE;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Enemy>().setMaxHP(40);
+        gameObject.GetComponent<Enemy>().setMaxHP(50);
         shootTimer = 1f;
     }
 
@@ -47,5 +49,10 @@ public class EnemyBomber : MonoBehaviour
             fireSE.Play();
             shootTimer += shootRate;
         }
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(itemDrop, transform.position, Quaternion.identity);
     }
 }

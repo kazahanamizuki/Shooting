@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour
         if (Mathf.Abs(transform.position.x) > screenBounds.x + objectWidth || Mathf.Abs(transform.position.y) > screenBounds.y + objectHeight)
         {
             outOfBound = true;
-            Debug.Log($"{Mathf.Abs(transform.position.x)} > {screenBounds.x} + {objectWidth} || {Mathf.Abs(transform.position.y)} > {screenBounds.y} + {objectHeight}");
         }
     }
 

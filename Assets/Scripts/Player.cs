@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
         gameObject.GetComponent<PlayerMovement>().enabled = false;
         gameObject.GetComponent<PlayerFire>().enabled = false;
+        GameObject.Find("GameManager").GetComponent<GameManager>().playerReturnAfterSeconds(1);
         Destroy(gameObject, .3f);
     }
 

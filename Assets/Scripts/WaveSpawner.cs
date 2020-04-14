@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public GameObject bomberPrefab;
+    public GameObject bomberGreenPrefab;
+    public GameObject bomberRedPrefab;
     public GameObject scoutPrefab;
 
     public Transform[] spawnPoints;
@@ -69,6 +70,9 @@ public class WaveSpawner : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
+            var bomberPrefab = bomberGreenPrefab;
+            if (i == count - 1)
+                bomberPrefab = bomberRedPrefab;
             GameObject bomber = Instantiate(bomberPrefab, spawnPoint.position, bomberPrefab.transform.rotation);
             bomber.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             bomber.GetComponent<Rigidbody2D>().AddForce(dir * 2f, ForceMode2D.Impulse);

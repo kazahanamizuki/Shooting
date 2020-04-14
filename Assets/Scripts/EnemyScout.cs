@@ -15,13 +15,15 @@ public class EnemyScout : MonoBehaviour
 
     public AudioSource fireSE;
 
+    public GameObject itemDrop;
+
     private Transform movePoint;
     private float moveSpeed = 2.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.GetComponent<Enemy>().setMaxHP(20);
+        gameObject.GetComponent<Enemy>().setMaxHP(1200);
         shootTimesRemain = shootTimesFast;
         shootTimer = 2f;
     }
@@ -87,5 +89,10 @@ public class EnemyScout : MonoBehaviour
     public void setMovePoint(Transform t)
     {
         movePoint = t;
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(itemDrop, transform.position, Quaternion.identity);
     }
 }
