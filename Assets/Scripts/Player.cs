@@ -6,17 +6,28 @@ public class Player : MonoBehaviour
 {
     public GameObject explosionEffect;
     public GameObject explosionSE;
+    public Animator animator;
+
+    private float invincibleTime;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        invincibleTime = 2f;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        invincibleTime -= Time.deltaTime;
+        if (isInvincible())
+        {
+            animator.SetBool("isInvincible", true);
+        }
+        else
+        {
+            animator.SetBool("isInvincible", false);
+        }
     }
 
     public void explosion()
@@ -37,5 +48,13 @@ public class Player : MonoBehaviour
 
         GameObject explosionSEObject = Instantiate(explosionSE, transform.position, Quaternion.identity);
         Destroy(explosionSEObject, 3f);
+    }
+
+    public bool isInvincible()
+    {
+        if (invincibleTime <= 0)
+            return false;
+        else
+            return true;
     }
 }

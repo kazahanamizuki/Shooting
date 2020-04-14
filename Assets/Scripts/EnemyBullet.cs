@@ -28,7 +28,8 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            collider.GetComponent<Player>().explosion();
+            if(!collider.GetComponent<Player>().isInvincible())
+                collider.GetComponent<Player>().explosion();
         }
     }
 
