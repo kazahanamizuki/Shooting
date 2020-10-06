@@ -21,57 +21,62 @@ public class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time + Time.deltaTime > 3 && wave == 0)
+        if (Time.time + Time.deltaTime > 5 && wave == 0)
         {
             wave++;
-            spawnBombers(spawnPoints[0], 4, -transform.up);
+            spawnBombers(spawnPoints[0], 4, -transform.up, false);
         }
-        if(Time.time + Time.deltaTime > 7 && wave == 1)
+        if(Time.time + Time.deltaTime > 10 && wave == 1)
         {
             wave++;
-            spawnBombers(spawnPoints[2], 4, - transform.up);
+            spawnBombers(spawnPoints[2], 4, - transform.up, false);
         }
-        if(Time.time + Time.deltaTime > 12 && wave == 2)
+        if (Time.time + Time.deltaTime > 15 && wave == 2)
+        {
+            wave++;
+            spawnBombers(spawnPoints[6], 5, transform.right, true);
+        }
+        if (Time.time + Time.deltaTime > 18 && wave == 3)
         {
             wave++;
             spawnScout(spawnPoints[1], spawnPoints[4]);
         }
-        if (Time.time + Time.deltaTime > 14 && wave == 3)
+        if (Time.time + Time.deltaTime > 22 && wave == 4)
         {
             wave++;
-            spawnBombers(spawnPoints[0], 4, - transform.up);
+            spawnBombers(spawnPoints[0], 4, - transform.up, false);
         }
-        if (Time.time + Time.deltaTime > 16 && wave == 4)
+        if (Time.time + Time.deltaTime > 26 && wave == 5)
         {
             wave++;
-            spawnBombers(spawnPoints[2], 4, - transform.up);
+            spawnBombers(spawnPoints[2], 4, - transform.up, false);
         }
-        if (Time.time + Time.deltaTime > 20 && wave == 5)
+        if (Time.time + Time.deltaTime > 35 && wave == 6)
         {
             wave++;
             spawnScout(spawnPoints[6], spawnPoints[3]);
             spawnScout(spawnPoints[7], spawnPoints[5]);
         }
-        if (Time.time + Time.deltaTime > 30 && wave == 6)
+        if (Time.time + Time.deltaTime > 45 && wave == 7)
         {
             wave++;
             spawnScout(spawnPoints[1], spawnPoints[4]);
-            spawnBombers(spawnPoints[6], 5, new Vector2(1f, -1f));
-            spawnBombers(spawnPoints[7], 5, new Vector2(-1f, -1f));
+            spawnBombers(spawnPoints[6], 5, new Vector2(1f, -1f), false);
+            spawnBombers(spawnPoints[7], 5, new Vector2(-1f, -1f), false);
         }
     }
 
-    public void spawnBombers(Transform spawnPoint, int count, Vector2 dir)
+    public void spawnBombers(Transform spawnPoint, int count, Vector2 dir, bool spawnRed)
     {
-        StartCoroutine(spawnBombersCoroutine(spawnPoint, count, dir));
+        StartCoroutine(spawnBombersCoroutine(spawnPoint, count, dir, spawnRed));
     }
 
-    private IEnumerator spawnBombersCoroutine(Transform spawnPoint, int count, Vector2 dir)
+    private IEnumerator spawnBombersCoroutine(Transform spawnPoint, int count, Vector2 dir, bool spawnRed)
     {
         for (int i = 0; i < count; i++)
         {
             var bomberPrefab = bomberGreenPrefab;
-            if (i == count - 1)
+            if (i == count - 1 && spawnRed)
                 bomberPrefab = bomberRedPrefab;
             GameObject bomber = Instantiate(bomberPrefab, spawnPoint.position, bomberPrefab.transform.rotation);
             bomber.GetComponent<Rigidbody2D>().rotation = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
